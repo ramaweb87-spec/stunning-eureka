@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dinas Perikanan Kabupaten Raja Ampat</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 50, 100, 0.7), rgba(0, 50, 100, 0.7)), url('data:image/jpeg;base64,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'); 
+            background-size: cover;
+            background-position: center;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+        }
+        .chart-container {
+            position: relative;
+            height: 250px;
+            width: 100%;
+        }
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 80s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .sidebar-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .sidebar-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-gray-800">
+
+    <!-- Running Text / Marquee -->
+    <div class="bg-blue-900 text-white py-2 text-sm font-semibold marquee-container shadow-md border-b border-blue-800">
+        <div class="marquee-content">
+            <span class="mx-4"><i class="fas fa-fish mr-2 text-yellow-400"></i>INFO GIZI: Ikan kaya Omega-3 untuk kecerdasan anak.</span>
+            <span class="mx-4"><i class="fas fa-info-circle mr-2 text-yellow-400"></i>Konsumsi ikan minimal 2x seminggu untuk kesehatan jantung.</span>
+            <span class="mx-4"><i class="fas fa-star mr-2 text-yellow-400"></i>Ikan Raja Ampat: Kualitas Ekspor, Harga Lokal.</span>
+            <span class="mx-4"><i class="fas fa-leaf mr-2 text-yellow-400"></i>Budidaya Ramah Lingkungan untuk Masa Depan Laut Kita.</span>
+        </div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <img src="g:\dashboard 2026\logo-removebg-preview.png" 
+                     alt="Logo Kabupaten Raja Ampat" 
+                     class="h-16 w-16 object-contain drop-shadow-md">
+                <div>
+                    <h1 class="text-xl md:text-2xl font-bold text-blue-900 leading-tight uppercase tracking-wide">Dinas Perikanan</h1>
+                    <p class="text-sm md:text-base text-gray-600 font-medium tracking-wider">KABUPATEN RAJA AMPAT</p>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex space-x-8 font-medium text-sm">
+                <a href="#beranda" class="text-blue-900 hover:text-orange-500 transition font-bold">Beranda</a>
+                <a href="#bidang" class="text-gray-600 hover:text-blue-900 transition">Bidang & Statistik</a>
+                <a href="#galeri" class="text-gray-600 hover:text-blue-900 transition">Galeri Kegiatan</a>
+                <a href="#kontak" class="text-gray-600 hover:text-blue-900 transition">Kontak</a>
+            </div>
+
+            <button class="md:hidden text-blue-900 text-2xl focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="beranda" class="hero-bg h-[500px] flex items-center justify-center text-center text-white relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">Potensi Bahari Raja Ampat</h2>
+            <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto drop-shadow-md font-light">Mewujudkan pengelolaan perikanan berkelanjutan untuk kesejahteraan nelayan dan pelestarian alam "The Last Paradise".</p>
+            <a href="#bidang" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full transition shadow-lg transform hover:scale-105 inline-flex items-center">
+                Lihat Data Statistik <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Main Content dengan Sidebar -->
+    <div class="container mx-auto px-6 py-12">
+        <div class="flex flex-wrap -mx-4">
+            
+            <!-- SIDEBAR KIRI -->
+            <aside class="w-full lg:w-1/4 px-4 mb-8 lg:mb-0 hidden lg:block">
+                <div class="sticky top-24">
+                    <h3 class="text-xl font-bold text-blue-900 mb-6 border-l-4 border-orange-500 pl-3">Kegiatan Terbaru</h3>
+                    
+                    <!-- Sidebar Item 1 -->
+                    <div class="sidebar-card">
+                        <img src="https://assets.pbdnews.com/wp-content/uploads/2024/07/IMG-20240716-WA0048.jpg" alt="Pelatihan Nelayan">
+                        <div class="p-4">
+                            <h4 class="font-bold text-blue-900 mb-2">Pelatihan Penangkapan Ramah Lingkungan</h4>
+                            <p class="text-sm text-gray-600 mb-3">Pelatihan dilaksanakan di salawati tengah oleh bidang tangkap Dinas Perikanan Raja ampat</p>
+                            <div class="flex items-center text-xs text-gray-500">
+                                <i class="far fa-calendar mr-2"></i>
+                                <span>5 April 2026</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Item 2 -->
+                    <div class="sidebar-card">
+                        <img src="g:\KJA.jfif" alt="Bantuan Alat">
+                        <div class="p-4">
+                            <h4 class="font-bold text-blue-900 mb-2">Penyerahan Bantuan KJA</h4>
+                            <p class="text-sm text-gray-600 mb-3">Penyerahan 10 unit Keramba Jaring Apung untuk Kelompok Pembudidaya</p>
+                            <div class="flex items-center text-xs text-gray-500">
+                                <i class="far fa-calendar mr-2"></i>
+                                <span>2 April 2026</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Item 3 -->
+                    <div class="sidebar-card">
+                        <img src="g:\dashboard 2026\GBR\Preparing fish crackers in the sun__.png" alt="Pengolahan Ikan">
+                        <div class="p-4">
+                            <h4 class="font-bold text-blue-900 mb-2">Workshop Pengolahan Ikan</h4>
+                            <p class="text-sm text-gray-600 mb-3">Pelatihan pembuatan abon dan kerupuk ikan untuk Kelompok Poklahsar</p>
+                            <div class="flex items-center text-xs text-gray-500">
+                                <i class="far fa-calendar mr-2"></i>
+                                <span>28 Maret 2026</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pengumuman -->
+                    <div class="bg-blue-900 text-white p-5 rounded-lg mt-6">
+                        <h4 class="font-bold mb-3 flex items-center">
+                            <i class="fas fa-bullhorn mr-2"></i> Pengumuman
+                        </h4>
+                        <ul class="text-sm space-y-2">
+                            <li class="border-b border-blue-700 pb-2">
+                                <a href="#" class="hover:text-orange-400 transition">Pendaftaran bantuan kapal ikan dibuka hingga 30 April 2026</a>
+                            </li>
+                            <li class="border-b border-blue-700 pb-2">
+                                <a href="#" class="hover:text-orange-400 transition">Jadwal vaksinasi ikan massal minggu depan</a>
+                            </li>
+                            <li>
+                                <a href="#" class="hover:text-orange-400 transition">Rapat koordinasi dengan seluruh POKDAKAN</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- KONTEN UTAMA -->
+            <main class="w-full lg:w-2/4 px-4">
+                <!-- 4 Bidang Utama dengan Grafik -->
+                <section id="bidang" class="mb-12">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl font-bold text-blue-900 mb-2">Profil & Statistik Bidang</h2>
+                        <div class="w-20 h-1 bg-orange-500 mx-auto rounded"></div>
+                        <p class="mt-4 text-gray-600">Data Proyeksi Kinerja Tahun 2025 - 2030</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        
+                        <!-- Bidang 1: Perikanan Tangkap -->
+                        <div class="glass-card p-5 border-t-4 border-blue-600">
+                            <div class="flex items-center mb-3">
+                                <div class="bg-blue-100 p-2 rounded-full text-blue-600 mr-3"><i class="fas fa-anchor"></i></div>
+                                <div>
+                                    <h3 class="font-bold text-base text-gray-800">Perikanan Tangkap</h3>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-600 mb-3">Fokus pada peningkatan alat tangkap ramah lingkungan.</p>
+                            
+                            <div class="chart-container mb-3">
+                                <canvas id="pieTangkap"></canvas>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="lineTangkap"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Bidang 2: Perikanan Budidaya -->
+                        <div class="glass-card p-5 border-t-4 border-green-600">
+                            <div class="flex items-center mb-3">
+                                <div class="bg-green-100 p-2 rounded-full text-green-600 mr-3"><i class="fas fa-water"></i></div>
+                                <div>
+                                    <h3 class="font-bold text-base text-gray-800">Perikanan Budidaya</h3>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-600 mb-3">Optimalisasi KJA komoditas Kakap & Kerapu.</p>
+                            
+                            <div class="chart-container mb-3">
+                                <canvas id="pieBudidaya"></canvas>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="lineBudidaya"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Bidang 3: SDM & Penyuluhan -->
+                        <div class="glass-card p-5 border-t-4 border-orange-600">
+                            <div class="flex items-center mb-3">
+                                <div class="bg-orange-100 p-2 rounded-full text-orange-600 mr-3"><i class="fas fa-users"></i></div>
+                                <div>
+                                    <h3 class="font-bold text-base text-gray-800">SDM & Penyuluhan</h3>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-600 mb-3">Pelatihan dan pemberdayaan masyarakat pesisir.</p>
+                            
+                            <div class="chart-container mb-3">
+                                <canvas id="pieSDM"></canvas>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="lineSDM"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Bidang 4: Pengolahan & Pemasaran -->
+                        <div class="glass-card p-5 border-t-4 border-purple-600">
+                            <div class="flex items-center mb-3">
+                                <div class="bg-purple-100 p-2 rounded-full text-purple-600 mr-3"><i class="fas fa-industry"></i></div>
+                                <div>
+                                    <h3 class="font-bold text-base text-gray-800">Pengolahan & Pemasaran</h3>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-600 mb-3">Hilirisasi produk dan perluasan akses pasar.</p>
+                            
+                            <div class="chart-container mb-3">
+                                <canvas id="piePasar"></canvas>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="linePasar"></canvas>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Galeri & Berita Terkini -->
+                <section id="galeri" class="mb-12">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-bold text-blue-900 mb-2">Galeri & Aktivitas Terkini</h2>
+                        <div class="w-20 h-1 bg-orange-500 mx-auto rounded"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        
+                        <!-- Gambar 1 -->
+                        <div class="group relative overflow-hidden rounded-xl shadow-lg cursor-pointer">
+                            <img src="https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?q=80&w=800&auto=format&fit=crop" 
+                            alt="Kantor Dinas" class="w-full h-48 object-cover transform group-hover:scale-110 transition duration-500">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/70 to-transparent p-4">
+                                <h4 class="text-white font-bold">Kantor Dinas Perikanan</h4>
+                                <p class="text-gray-200 text-xs mt-1">Pusat layanan administrasi di Waisai</p>
+                            </div>
+                        </div>
+
+                        <!-- Gambar 2 -->
+                        <div class="group relative overflow-hidden rounded-xl shadow-lg cursor-pointer">
+                            <img src="https://images.unsplash.com/photo-1534951009808-766178b47a4f?q=80&w=800&auto=format&fit=crop"
+                             alt="Nelayan Tangkap" class="w-full h-48 object-cover transform group-hover:scale-110 transition duration-500">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/70 to-transparent p-4">
+                                <h4 class="text-white font-bold">Aktivitas Penangkapan</h4>
+                                <p class="text-gray-200 text-xs mt-1">Nelayan lokal di perairan Wayag</p>
+                            </div>
+                        </div>
+
+                        <!-- Gambar 3 -->
+                        <div class="group relative overflow-hidden rounded-xl shadow-lg cursor-pointer">
+                            <img src="g:\download.jfif">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/70 to-transparent p-4">
+                                <h4 class="text-white font-bold">Panen Raya Budidaya</h4>
+                                <p class="text-gray-200 text-xs mt-1">Hasil panen KJA Kakap Putih</p>
+                            </div>
+                        </div>
+
+                        <!-- Gambar 4 -->
+                        <div class="group relative overflow-hidden rounded-xl shadow-lg cursor-pointer">
+                            <img src="g:\images.jfif">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/70 to-transparent p-4">
+                                <h4 class="text-white font-bold">Unit Pengolahan Ikan</h4>
+                                <p class="text-gray-200 text-xs mt-1">Proses pengemasan fillet ikan</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+            </main>
+
+            <!-- SIDEBAR KANAN -->
+            <aside class="w-full lg:w-1/4 px-4 hidden lg:block">
+                <div class="sticky top-24">
+                    <h3 class="text-xl font-bold text-blue-900 mb-6 border-l-4 border-orange-500 pl-3">Informasi & Agenda</h3>
+                    
+                    <!-- Agenda Kegiatan -->
+                    <div class="bg-white p-5 rounded-lg shadow-md mb-6">
+                        <h4 class="font-bold text-blue-900 mb-4 flex items-center">
+                            <i class="fas fa-calendar-alt mr-2 text-orange-500"></i> Agenda Bulan Ini
+                        </h4>
+                        <div class="space-y-4">
+                            <div class="border-l-4 border-blue-500 pl-3">
+                                <p class="font-bold text-sm text-blue-900">Rapat Koordinasi</p>
+                                <p class="text-xs text-gray-600">15 April 2026 - Aula Dinas</p>
+                            </div>
+                            <div class="border-l-4 border-green-500 pl-3">
+                                <p class="font-bold text-sm text-blue-900">Monitoring KJA</p>
+                                <p class="text-xs text-gray-600">18 April 2026 - Kampung Lintas</p>
+                            </div>
+                            <div class="border-l-4 border-orange-500 pl-3">
+                                <p class="font-bold text-sm text-blue-900">Pelatihan Pembudidaya</p>
+                                <p class="text-xs text-gray-600">22 April 2026 - UPT Perikanan</p>
+                            </div>
+                            <div class="border-l-4 border-purple-500 pl-3">
+                                <p class="font-bold text-sm text-blue-900">Panen Raya Bersama</p>
+                                <p class="text-xs text-gray-600">28 April 2026 - Perairan Wayag</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Statistik Kunjungan -->
+                    <div class="bg-gradient-to-br from-blue-900 to-blue-700 text-white p-5 rounded-lg shadow-md mb-6">
+                        <h4 class="font-bold mb-4 flex items-center">
+                            <i class="fas fa-chart-line mr-2"></i> Statistik Bulan Ini
+                        </h4>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm">Produksi Ikan Tangkap</span>
+                                <span class="font-bold">1,250 Ton</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm">Produksi Budidaya</span>
+                                <span class="font-bold">680 Ton</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm">Nelayan Aktif</span>
+                                <span class="font-bold">342 Orang</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm">Unit KJA</span>
+                                <span class="font-bold">85 Unit</span>
+                            </div>
+                            <div class="border-t border-blue-600 pt-3 mt-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm font-semibold">Total Nilai Produksi</span>
+                                    <span class="font-bold text-orange-400">Rp 15.2 M</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cuaca & Kondisi Laut -->
+                    <div class="bg-white p-5 rounded-lg shadow-md mb-6">
+                        <h4 class="font-bold text-blue-900 mb-4 flex items-center">
+                            <i class="fas fa-cloud-sun mr-2 text-yellow-500"></i> Kondisi Laut
+                        </h4>
+                        <div class="text-center mb-3">
+                            <i class="fas fa-sun text-5xl text-yellow-400 mb-2"></i>
+                            <p class="font-bold text-blue-900">Cerah Berawan</p>
+                            <p class="text-sm text-gray-600">Suhu: 28°C</p>
+                        </div>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Tinggi Gelombang:</span>
+                                <span class="font-semibold">0.5 - 1.25 m</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Kecepatan Angin:</span>
+                                <span class="font-semibold">10 km/jam</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Suhu Air:</span>
+                                <span class="font-semibold">29°C</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 p-3 bg-green-100 rounded text-xs text-green-800 text-center">
+                            <i class="fas fa-check-circle mr-1"></i> Aman untuk melaut
+                        </div>
+                    </div>
+
+                    <!-- Link Cepat -->
+                    <div class="bg-white p-5 rounded-lg shadow-md">
+                        <h4 class="font-bold text-blue-900 mb-4 flex items-center">
+                            <i class="fas fa-link mr-2 text-blue-500"></i> Link Terkait
+                        </h4>
+                        <ul class="space-y-2 text-sm">
+                            <li>
+                                <a href="#" class="flex items-center text-gray-600 hover:text-blue-900 transition">
+                                    <i class="fas fa-external-link-alt mr-2 text-xs"></i>
+                                    Kementerian Kelautan & Perikanan
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex items-center text-gray-600 hover:text-blue-900 transition">
+                                    <i class="fas fa-external-link-alt mr-2 text-xs"></i>
+                                    Pemprov Papua Barat Daya
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex items-center text-gray-600 hover:text-blue-900 transition">
+                                    <i class="fas fa-external-link-alt mr-2 text-xs"></i>
+                                    BMKG Maritim
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex items-center text-gray-600 hover:text-blue-900 transition">
+                                    <i class="fas fa-external-link-alt mr-2 text-xs"></i>
+                                    Pelabuhan Perikanan
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="kontak" class="bg-blue-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 border-b border-blue-700 pb-2 inline-block">Tentang Kami</h3>
+                    <p class="text-blue-200 text-sm leading-relaxed">
+                        Dinas Perikanan Kabupaten Raja Ampat berkomitmen mengelola sumber daya kelautan dan perikanan secara berkelanjutan demi kesejahteraan masyarakat pesisir dan menjaga kelestarian alam.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4 border-b border-blue-700 pb-2 inline-block">Kontak</h3>
+                    <ul class="space-y-2 text-sm text-blue-200">
+                        <li><i class="fas fa-map-marker-alt w-6"></i> Jl. Basuki Rahmat, Waisai, Raja Ampat</li>
+                        <li><i class="fas fa-phone w-6"></i>0821 9900 9116</li>
+                        <li><i class="fas fa-envelope w-6"></i> disperikanr4@gmail.com</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4 border-b border-blue-700 pb-2 inline-block">Jam Operasional</h3>
+                    <ul class="space-y-2 text-sm text-blue-200">
+                        <li class="flex justify-between"><span>Senin - Kamis:</span> <span>08.00 - 16.00 WIT</span></li>
+                        <li class="flex justify-between"><span>Jumat:</span> <span>08.00 - 16.30 WIT</span></li>
+                        <li class="flex justify-between"><span>Sabtu - Minggu:</span> <span>Tutup</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-blue-800 pt-8 text-center text-sm text-blue-400">
+                &copy; 2026 Dinas Perikanan Kabupaten Raja Ampat. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script untuk Grafik Chart.js -->
+    <script>
+        const years = ['2025', '2026', '2027', '2028', '2029', '2030'];
+        
+        const commonOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        boxWidth: 10,
+                        font: { size: 10 }
+                    }
+                }
+            }
+        };
+
+        const lineOptions = {
+            ...commonOptions,
+            scales: { y: { beginAtZero: true } },
+            plugins: { legend: { display: false } }
+        };
+
+        const pieOptions = {
+            ...commonOptions,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { boxWidth: 10, font: { size: 10 } }
+                }
+            }
+        };
+
+        new Chart(document.getElementById('pieTangkap'), {
+            type: 'pie',
+            data: {
+                labels: ['Pelagis', 'Demersal', 'Crustacea'],
+                datasets: [{
+                    data: [50, 30, 20],
+                    backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384']
+                }]
+            },
+            options: pieOptions
+        });
+        new Chart(document.getElementById('lineTangkap'), {
+            type: 'line',
+            data: {
+                labels: years,
+                datasets: [{
+                    label: 'Produksi (Ton)',
+                    data: [20, 0, 0, 0, 0, 0],
+                    borderColor: '#36A2EB',
+                    tension: 0.4,
+                    fill: false
+                }]
+            },
+            options: lineOptions
+        });
+
+        new Chart(document.getElementById('pieBudidaya'), {
+            type: 'pie',
+            data: {
+                labels: ['Laut (KJA)', 'Payau (Tambak)', 'Air Tawar'],
+                datasets: [{
+                    data: [0, 0, 0],
+                    backgroundColor: ['#4BC0C0', '#36A2EB', '#FFCE56']
+                }]
+            },
+            options: pieOptions
+        });
+        new Chart(document.getElementById('lineBudidaya'), {
+            type: 'line',
+            data: {
+                labels: years,
+                datasets: [{
+                    label: 'Produksi (Ton)',
+                    data: [3, 0, 0, 0, 0, 0],
+                    borderColor: '#4BC0C0',
+                    tension: 0.4,
+                    fill: false
+                }]
+            },
+            options: lineOptions
+        });
+
+        new Chart(document.getElementById('pieSDM'), {
+            type: 'pie',
+            data: {
+                labels: ['Pelatihan Teknis', 'Penyuluhan', 'Bantuan Alat'],
+                datasets: [{
+                    data: [0, 0, 0],
+                    backgroundColor: ['#FF9F40', '#FFCD56', '#C9CBCF']
+                }]
+            },
+            options: pieOptions
+        });
+        new Chart(document.getElementById('lineSDM'), {
+            type: 'line',
+            data: {
+                labels: years,
+                datasets: [{
+                    label: 'Jumlah Orang',
+                    data: [2, 0, 0, 0, 0, 0],
+                    borderColor: '#FF9F40',
+                    tension: 0.4,
+                    fill: false
+                }]
+            },
+            options: lineOptions
+        });
+
+        new Chart(document.getElementById('piePasar'), {
+            type: 'pie',
+            data: {
+                labels: ['Lokal', 'Nasional', 'Ekspor'],
+                datasets: [{
+                    data: [0, 0, 0],
+                    backgroundColor: ['#9966FF', '#FF6384', '#36A2EB']
+                }]
+            },
+            options: pieOptions
+        });
+        new Chart(document.getElementById('linePasar'), {
+            type: 'line',
+            data: {
+                labels: years,
+                datasets: [{
+                    label: 'Nilai (Miliar Rp)',
+                    data: [6, 0, 0, 0, 0, 0],
+                    borderColor: '#9966FF',
+                    tension: 0.4,
+                    fill: false
+                }]
+            },
+            options: lineOptions
+        });
+    </script>
+</body>
+</html>
